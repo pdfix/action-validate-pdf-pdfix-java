@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.pdfix</groupId>
-  <artifactId>net.pdfix.FindDuplicateMcid</artifactId>
+  <artifactId>net.pdfix.report-duplicate-mcid</artifactId>
   <packaging>jar</packaging>
   <version>1.0.0</version>
 
@@ -116,7 +116,7 @@
               <groupId>net.pdfix</groupId>
               <artifactId>net.pdfix.pdfixlib</artifactId>
               <version>${project.version}</version>
-              <file>${pom.basedir}/lib/net.pdfix.pdfixlib-${project.version}.jar</file>
+              <file>${pom.basedir}/lib/net.pdfix.pdfixlib-8.4.3.jar</file>
               <packaging>jar</packaging>
               <generatePom>true</generatePom>
             </configuration>
