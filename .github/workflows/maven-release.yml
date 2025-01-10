@@ -34,6 +34,18 @@ jobs:
         unzip lib/pdfixlib-8.4.3.jar.zip -d lib/
         mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
 
+    - name: Extract version from tag
+      id: extract_version
+      run: |
+        # Extract the version from the tag (e.g., "v1.2.1" -> "1.2.1")
+        VERSION=$(echo ${GITHUB_REF#refs/tags/v})
+        echo "Version to set: $VERSION"
+        echo "::set-output name=version::$VERSION"
+  
+    - name: Set version in pom.xml
+      run: |
+        mvn versions:set -DnewVersion=${{ steps.extract_version.outputs.version }}
+  
     - name: Build with Maven
       run: |
         mvn compile -f pom.xml |
