@@ -86,6 +86,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          pdfix-report-duplicate-mcid-${VERSION}.zip
+          pdfix-report-duplicate-mcid-${{ steps.extract_version.outputs.version }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
