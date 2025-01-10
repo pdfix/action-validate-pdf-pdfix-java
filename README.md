@@ -9,6 +9,11 @@ All resources are available on https://pdfix.net/download.
 
 ## Compile App
 
+Install the PDFix SDK 
+```
+mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
+```
+
 ```
 mvn compile -f pom.xml
 mvn package -f pom.xml
