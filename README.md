@@ -1,11 +1,10 @@
-# PDFix Report Duplicate MCID in tagged PDF
-Command-line application to report duplicate MCID entries in tagged PDF written in Java.
+# Validate PDF Accessibility Issues
+
+A Java CLI application to validate and report accessibility issues in PDF documents.
 
 ## Setup
 
-Download PDFix SDK for Java `net.pdfix.pdfixlib-<version>.jar` and copy to `lib/`
-
-All resources are available on https://pdfix.net/download.
+Download PDFix SDK for Java `net.pdfix.pdfixlib-<version>.jar` from https://pdfix.net/download and copy to `lib/`
 
 ## Compile App
 
@@ -22,9 +21,10 @@ mvn package -f pom.xml
 ## Run the sample
 
 ```
-java -jar target/net.pdfix.FindDuplicateMcid-1.0.0 -i "<path to pdf>"
+java -jar target/net.pdfix.validate-pdf-1.0.0 -i "<path to pdf>"
 ```
 - `-i` - path to PDF document to process
+- `-d` - directory with PDF documents to process
   
 ### Output
 

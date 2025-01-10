@@ -64,7 +64,7 @@ jobs:
       id: prepare-for-release
       run: |
         VERSION=${{ steps.extract_version.outputs.version }}
-        RELEASE_DIR=net.pdfix.report-duplicate-mcid-${VERSION}
+        RELEASE_DIR=net.pdfix.validate-pdf-${VERSION}
         echo "::set-output name=release_dir::$RELEASE_DIR"
 
         mkdir ${RELEASE_DIR}
@@ -75,7 +75,7 @@ jobs:
       run: |
         VERSION=${{ steps.extract_version.outputs.version }}
         RELEASE_DIR=${{ steps.prepare-for-release.outputs.release_dir }}
-        zip -r "pdfix-report-duplicate-mcid-${VERSION}.zip" $RELEASE_DIR/
+        zip -r "net.pdfix.validate-pdf-${VERSION}.zip" $RELEASE_DIR/
 
 #    - name: Publish Release
 #      run: mvn deploy -P release -DskipTests
@@ -87,6 +87,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          pdfix-report-duplicate-mcid-${{ steps.extract_version.outputs.version }}.zip
+          net.pdfix.validate-pdf-${{ steps.extract_version.outputs.version }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
