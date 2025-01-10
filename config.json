@@ -20,7 +20,7 @@
           "title": "Report Duplicate MCID",
           "name": "report_duplicate_mcid",
           "desc": "Report Duplicate MCID",
-          "program": "java -jar \"${action_path}/net.pdfix.ReportDuplicateMcid-1.0.0.jar\" -i \"${input_pdf}\""
+          "program": "java -jar \"${action_path}/net.pdfix.report-duplicate-mcid-1.0.0.jar\" -i \"${input_pdf}\""
         }
       ],
       "args": [

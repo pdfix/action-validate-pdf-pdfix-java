@@ -46,6 +46,13 @@ jobs:
       run: |
         mvn versions:set -DnewVersion=${{ steps.extract_version.outputs.version }}
   
+    - name: Update version in config.json
+      run: |
+        VERSION=${{ steps.extract_version.outputs.version }}
+        
+        # Use sed to replace the old version in the "program" field of config.json
+        sed -i "s/-[0-9]*\.[0-9]*\.[0-9]*.jar/-${VERSION}.jar/" config.json
+  
     - name: Build with Maven
       run: |
         mvn compile -f pom.xml |
