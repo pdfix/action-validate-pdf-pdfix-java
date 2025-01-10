@@ -1,0 +1,46 @@
+{
+  "actions": [
+    {
+      "title": "Report Duplicate MCID",
+      "name": "report_duplicate_mcid",
+      "desc": "Action that validates PDF for duplicite MCID entries in the page content",
+      "icon": "bug_report",
+      "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      },
+      "category": "Validation",
+      "returnCodes": [
+        0, 1
+      ],
+      "configurations": [
+        {
+          "stdout": "${output_txt}",
+          "title": "Report Duplicate MCID",
+          "name": "report_duplicate_mcid",
+          "desc": "Report Duplicate MCID",
+          "program": "java -jar \"${action_path}/net.pdfix.ReportDuplicateMcid-1.0.0.jar\" -i \"${input_pdf}\""
+        }
+      ],
+      "args": [
+        {
+          "name": "input_pdf",
+          "desc": "Path to a PDF document to proccess",
+          "flags": 2,
+          "ext": "pdf",
+          "type": "file_path",
+          "value": ""
+        },
+        {
+          "name": "output_txt",
+          "desc": "Path to validation report output",
+          "flags": 4,
+          "ext": "txt",
+          "type": "file_path",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}
