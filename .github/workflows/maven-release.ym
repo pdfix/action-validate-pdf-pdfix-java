@@ -1,0 +1,50 @@
+name: Maven Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger release on version tag, e.g., v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adoptopenjdk'
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Download and unzip JAR file
+      run: |
+        mkdir -p lib
+        curl -L https://github.com/pdfix/pdfix_sdk_builds/releases/download/v8.4.3/java8-net.pdfix.pdfixlib-8.4.3.jar.zip -o lib/pdfixlib-8.4.3.jar.zip
+        unzip lib/pdfixlib-8.4.3.jar.zip -d lib/
+
+    - name: Build with Maven
+      run: mvn clean install -DskipTests
+
+#    - name: Publish Release
+#      run: mvn deploy -P release -DskipTests
+#      env:
+#        MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+#        MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: "target/net.pdfix.*.jar"  # Adjust this to the actual files you want to attach to the release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
