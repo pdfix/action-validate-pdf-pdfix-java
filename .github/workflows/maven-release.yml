@@ -50,7 +50,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          "target/net.pdfix.*.jar"
-          "config.json"
+          target/net.pdfix.*.jar
+          config.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
