@@ -32,4 +32,4 @@ Text: Freitag
 ```
 
 ## Have a question? Need help?
-Let us know and we’ll get back to you. Write us to support@pdfix.net or fill the [contact form](https://pdfix.net/support/).
+Let us know and we’ll get back to you. Write us to support@pdfix.net.
