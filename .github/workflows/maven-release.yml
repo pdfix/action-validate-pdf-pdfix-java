@@ -52,6 +52,7 @@ jobs:
         
         # Use sed to replace the old version in the "program" field of config.json
         sed -i "s/-[0-9]*\.[0-9]*\.[0-9]*.jar/-${VERSION}.jar/" config.json
+        sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"${VERSION}\"/" config.json
   
     - name: Build with Maven
       run: |
