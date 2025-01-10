@@ -59,6 +59,23 @@ jobs:
         mvn package -f pom.xml
       # run: mvn clean install -DskipTests
 
+    - name: Prepare files for release
+      id: prepare-for-release
+      run: |
+        VERSION=${{ steps.extract_version.outputs.version }}
+        RELEASE_DIR=net.pdfix.report-duplicate-mcid-${VERSION}
+        echo "::set-output name=release_dir::$RELEASE_DIR"
+
+        mkdir ${RELEASE_DIR}
+        cp target/net.pdfix.*.jar ${RELEASE_DIR}/
+        cp config.json ${RELEASE_DIR}/
+    
+    - name: Zip the release files
+      run: |
+        VERSION=${{ steps.extract_version.outputs.version }}
+        RELEASE_DIR=${{ steps.prepare-for-release.outputs.release_dir }}
+        zip -r "pdfix-report-duplicate-mcid-${VERSION}.zip" $RELEASE_DIR/
+
 #    - name: Publish Release
 #      run: mvn deploy -P release -DskipTests
 #      env:
@@ -69,7 +86,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          target/net.pdfix.*.jar
-          config.json
+          pdfix-report-duplicate-mcid-${VERSION}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
