@@ -1,9 +1,9 @@
 # PDFix Report Duplicate MCID in tagged PDF
-Command-line application to report duplicate MCID entries in tagged PDFSDK written in Java.
+Command-line application to report duplicate MCID entries in tagged PDF written in Java.
 
 ## Setup
 
-Download `net.pdfix.pdfixlib-<version>.jar` and copy to `lib/`
+Download PDFix SDK for Java `net.pdfix.pdfixlib-<version>.jar` and copy to `lib/`
 
 All resources are available on https://pdfix.net/download.
 
