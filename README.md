@@ -46,10 +46,11 @@ Total 1 duplicate MCIDs found
 ```
 mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
 ```
-3. Compile and Package
+3. Compile, Test and Package
 ```
-mvn compile -f pom.xml
-mvn package -f pom.xml
+mvn compile
+mvn test
+mvn package
 ```
 
 
