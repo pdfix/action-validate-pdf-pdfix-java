@@ -12,13 +12,16 @@ import java.util.List;
 import java.util.Properties;
 
 public class App {
+  private static String VERSION = "1.0.0";
+  private static String APP_NAME = "Validate PDF Accessibility";
+
   private static void displayVersion() {
     Properties properties = new Properties();
     try {
       properties.load(App.class.getClassLoader().getResourceAsStream("version.properties"));
-      String version = properties.getProperty("project.version");
-      String name = properties.getProperty("project.name");
-      System.out.println(name + " v" + version + "\n");
+      VERSION = properties.getProperty("project.version");
+      APP_NAME = properties.getProperty("project.name");
+      System.out.println(APP_NAME + " v" + VERSION + "\n");
     } catch (IOException e) {
       System.err.println("Error reading version information.");
     }
@@ -93,14 +96,15 @@ public class App {
       for (String s : args) {
         if (last.isEmpty()) {
           if (s.equals("--help")) {
-            System.out.println("Usage: java -jar {*.jar} [operation] [arguments]:");
+            System.out.println("Usage:");
+            System.out.println("  java -jar net.pdfix.validate-pdf-" + VERSION + ".jar [operation] [arguments]");
             System.out.println("");
             System.out.println("Operations:");
-            System.out.println("  duplicate-mcid    : Validate and report duplicate MCID entries in the content");
+            System.out.println("  duplicate-mcid    : Validate and report duplicate MCID entries in the tagged content");
             System.out.println("");
-            System.out.println("Argumants:");
+            System.out.println("Arguments:");
             System.out.println("  -i <file>         : Path to a PDF file to process");
-            System.out.println("  -d <folder>       : Path to a directory to process");
+            System.out.println("  -d <directory>    : Path to a directory to process");
             return;
           } else if (s.equals("-i") || s.equals("--input")) {
             last = "-i";
