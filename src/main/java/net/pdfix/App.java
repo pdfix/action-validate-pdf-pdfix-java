@@ -78,7 +78,7 @@ public class App {
     if (count == 0) {
       System.out.println("No duplicate MCIDs found");
     } else {
-      System.out.println(String.format("Total %d duplicate MCIDs found", count));
+      System.out.println(String.format("Total %d duplicate MCID(s) found", count));
     }
   }
 
