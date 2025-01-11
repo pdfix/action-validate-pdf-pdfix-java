@@ -56,9 +56,9 @@ jobs:
   
     - name: Build with Maven
       run: |
-        mvn compile -f pom.xml 
+        mvn compile
         mvn test 
-        mvn package -f pom.xml
+        mvn package
       # run: mvn clean install -DskipTests
 
     - name: Prepare files for release
