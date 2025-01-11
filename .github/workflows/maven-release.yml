@@ -56,8 +56,8 @@ jobs:
   
     - name: Build with Maven
       run: |
-        mvn compile -f pom.xml |
-        mvn test |
+        mvn compile -f pom.xml 
+        mvn test 
         mvn package -f pom.xml
       # run: mvn clean install -DskipTests
 
