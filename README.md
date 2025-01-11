@@ -1,5 +1,5 @@
 # PDF Accessibility Validator using PDFix
-A Java CLI tool for validating accessibility issues in PDF documents
+A Java CLI tool for validating the compliance of PDF documents with accessibility standards such as WCAG, or PDF/UA.
 
 ## Introduction
 This tool validates PDF accessibility by checking for issues in tagged PDF documents. It leverages the PDFix SDK (free version) for reading and processing PDF files. Ensuring that PDFs are accessible is crucial for users with disabilities, and this tool helps identify and report potential issues.
