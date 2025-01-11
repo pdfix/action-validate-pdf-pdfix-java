@@ -15,6 +15,7 @@ This tool validates PDF accessibility by checking for issues in tagged PDF docum
   - [Build Instructions](#build-instructions)
     - [1. Download and Install PDFix SDK for Java](#1-download-and-install-pdfix-sdk-for-java)
     - [2. Compile, Test and Package](#2-compile-test-and-package)
+  - [License](#license)
   - [Have a question? Need help?](#have-a-question-need-help)
 
 
@@ -77,6 +78,9 @@ mvn compile
 mvn test
 mvn package
 ```
+
+## License
+This project is licensed under the [PDFix Free License](https://pdfix.net/terms/).
 
 ## Have a question? Need help?
 If you have any questions or need assistance, feel free to reach out to us via email at [support@pdfix.net](mailto:support@pdfix.net).
