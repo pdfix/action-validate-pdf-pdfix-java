@@ -1,4 +1,4 @@
-# Validate PDF Accessibility Issues
+# Validate PDF Accessibility with PDFix
 
 A Java CLI application to validate and report accessibility issues in PDF documents.
 
