@@ -43,7 +43,7 @@ public class FindDuplicateMcid {
 
   // Check for duplicate MCIDs in a PDF file. Return the number of dulicate mcids
   // found
-  public static int checkDuplicateMcid(String path, boolean autotag) throws Exception {
+  public static int checkDuplicateMcid(String path) throws Exception {
     Pdfix pdfix = new Pdfix();
 
     PdfDoc doc = pdfix.OpenDoc(path, "");
@@ -52,13 +52,6 @@ public class FindDuplicateMcid {
     }
 
     int found = 0;
-
-    if (autotag) {
-      PdfTagsParams params = new PdfTagsParams();
-      doc.RemoveTags();
-      doc.RemoveStructTree();
-      doc.AddTags(params);
-    }
 
     for (int i = 0; i < doc.GetNumPages(); i++) {
       PdfPage page = doc.AcquirePage(i);

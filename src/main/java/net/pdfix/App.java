@@ -74,7 +74,7 @@ public class App {
       return;
     }
 
-    int count = FindDuplicateMcid.checkDuplicateMcid(file.getAbsolutePath(), false);
+    int count = FindDuplicateMcid.checkDuplicateMcid(file.getAbsolutePath());
     if (count == 0) {
       System.out.println("No duplicate MCIDs found");
     } else {
