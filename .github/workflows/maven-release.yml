@@ -40,7 +40,7 @@ jobs:
         # Extract the version from the tag (e.g., "v1.2.1" -> "1.2.1")
         VERSION=$(echo ${GITHUB_REF#refs/tags/v})
         echo "Version to set: $VERSION"
-        echo "::set-output name=version::$VERSION"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
   
     - name: Set version in pom.xml
       run: |
@@ -66,7 +66,7 @@ jobs:
       run: |
         VERSION=${{ steps.extract_version.outputs.version }}
         RELEASE_DIR=net.pdfix.validate-pdf-${VERSION}
-        echo "::set-output name=release_dir::$RELEASE_DIR"
+        echo "release_dir=$RELEASE_DIR" >> $GITHUB_OUTPUT
 
         mkdir ${RELEASE_DIR}
         cp target/net.pdfix.*.jar ${RELEASE_DIR}/
