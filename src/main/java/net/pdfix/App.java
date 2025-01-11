@@ -79,6 +79,8 @@ public class App {
     }
   }
 
+  private static String OP_DUPLICATE_MCID = "OP_DUPLICATE_MCID";
+
   public static void main(String[] args) throws Exception {
     displayVersion();
 
@@ -86,30 +88,44 @@ public class App {
     String inputDirectory = "";
     String last = "";
 
-    for (String s : args) {
-      if (!last.isEmpty()) {
-        // expected parameter name in last
-        if (last.equals("-i")) {
-          inputFile = s;
-        } else if (last.equals("-d")) {
-          inputDirectory = s;
-        }
-        last = ""; // reset last after parameter is set
-      } else {
-        if (s.equals("--help")) {
-          System.out.println("Usage:");
-          System.out.println("  -i <file>    : Process a single PDF file.");
-          System.out.println("  -d <folder>  : Process all PDF files in a folder.");
-          return;
-        } else if (s.equals("-i") || s.equals("--input")) {
-          last = "-i";
-        } else if (s.equals("-d") || s.equals("--directory")) {
-          last = "-d";
+    String op = "";
+    try {
+      for (String s : args) {
+        if (last.isEmpty()) {
+          if (s.equals("--help")) {
+            System.out.println("Usage: java -jar {*.jar} [operation] [arguments]:");
+            System.out.println("");
+            System.out.println("Operations:");
+            System.out.println("  duplicate-mcid    : Validate and report duplicate MCID entries in the content");
+            System.out.println("");
+            System.out.println("Argumants:");
+            System.out.println("  -i <file>         : Path to a PDF file to process");
+            System.out.println("  -d <folder>       : Path to a directory to process");
+            return;
+          } else if (s.equals("-i") || s.equals("--input")) {
+            last = "-i";
+          } else if (s.equals("-d") || s.equals("--directory")) {
+            last = "-d";
+          } else if (s.equals("duplicate-mcid")) {
+            op = OP_DUPLICATE_MCID;
+          } else {
+            throw new RuntimeException("Unexpected argument " + s);
+          }
+        } else {
+          // expected parameter name in last
+          if (last.equals("-i")) {
+            inputFile = s;
+          } else if (last.equals("-d")) {
+            inputDirectory = s;
+          }
+          last = ""; // reset last after parameter is set
         }
       }
-    }
 
-    try {
+      if (op.isEmpty()) {
+        throw new RuntimeException("Missing operation argument. See --help");
+      }
+
       List<File> fileList = new ArrayList<>();
       if (!inputFile.isEmpty()) {
         fileList.add(new File(inputFile));
@@ -136,7 +152,9 @@ public class App {
       for (File file : fileList) {
         System.out.println("===============================================================================");
         try {
-          processFile(file);
+          if (op == OP_DUPLICATE_MCID) {
+            processFile(file);
+          }
         } catch (Exception e) {
           System.out.println(e.getLocalizedMessage());
         }

@@ -30,10 +30,18 @@ java -jar target/net.pdfix.validate-pdf-1.0.0 -i "<path to pdf>"
 
 When duplicate entry was found:
 ```
-Duplicate MCID: '6'
-Page: 1, Index: 2, Type: text
-BBox: [413.4234619140625, 797.4384155273438 439.1921081542969 804.83447265625]
-Text: Freitag
+===============================================================================
+File: /Users/administrator/Downloads/example.pdf
+Duplicate MCID Found:
+  MCID      : 9
+  Page      : 26
+  Index     : 32
+  Type      : text
+  BBox      : [240.12, 455.95, 297.72, 457.32]
+  Content: Freitag
+
+Total 1 duplicate MCIDs found  
+===============================================================================
 ```
 
 ## Have a question? Need help?
