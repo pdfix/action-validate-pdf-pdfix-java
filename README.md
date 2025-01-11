@@ -2,33 +2,27 @@
 
 A Java CLI application to validate and report accessibility issues in PDF documents.
 
-## Setup
-
-Download PDFix SDK for Java `net.pdfix.pdfixlib-<version>.jar` from https://pdfix.net/download and copy to `lib/`
-
-## Compile App
-
-Install the PDFix SDK 
+## Command-Line options
 ```
-mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
-```
+Usage:
+  java -jar validate-pdf-1.0.0.jar [operation] [arguments]
 
-```
-mvn compile -f pom.xml
-mvn package -f pom.xml
+Operations:
+  duplicate-mcid    : Validate and report duplicate MCID entries in a tagged content
+
+Arguments:
+  -i <file>         : Path to a PDF file to process
+  -d <folder>       : Path to a directory to process
 ```
 
-## Run the sample
+## Run the application
 
+### Report Duplicate MCID in Tagged PDF
 ```
-java -jar target/net.pdfix.validate-pdf-1.0.0 -i "<path to pdf>"
+java -jar target/net.pdfix.validate-pdf-1.0.0 duplicate-mcid -i "<path to pdf>"
 ```
-- `-i` - path to PDF document to process
-- `-d` - directory with PDF documents to process
   
-### Output
-
-When duplicate entry was found:
+**Output**
 ```
 ===============================================================================
 File: /Users/administrator/Downloads/example.pdf
@@ -43,6 +37,22 @@ Duplicate MCID Found:
 Total 1 duplicate MCIDs found  
 ===============================================================================
 ```
+
+## Build Instructions
+
+1. Download PDFix SDK for Java `net.pdfix.pdfixlib-<version>.jar` from https://pdfix.net/download and copy to `lib/`
+
+2. Install the PDFix SDK 
+```
+mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
+```
+3. Compile and Package
+```
+mvn compile -f pom.xml
+mvn package -f pom.xml
+```
+
+
 
 ## Have a question? Need help?
 Let us know and we’ll get back to you. Write us to support@pdfix.net.
