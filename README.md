@@ -15,13 +15,12 @@ Arguments:
   -d <folder>       : Path to a directory to process
 ```
 
-## Run the application
+## Run the CLI Commands
 
 ### Report Duplicate MCID in Tagged PDF
 ```
 java -jar target/net.pdfix.validate-pdf-1.0.0 duplicate-mcid -i "<path to pdf>"
 ```
-  
 **Output**
 ```
 ===============================================================================
@@ -40,13 +39,15 @@ Total 1 duplicate MCIDs found
 
 ## Build Instructions
 
-1. Download PDFix SDK for Java `net.pdfix.pdfixlib-<version>.jar` from https://pdfix.net/download and copy to `lib/`
-
-2. Install the PDFix SDK 
+### 1. Download and Install PDFix SDK for Java
 ```
+mkdir -p lib
+curl -L https://github.com/pdfix/pdfix_sdk_builds/releases/download/v8.4.3/java8-net.pdfix.pdfixlib-8.4.3.jar.zip -o lib/pdfixlib-8.4.3.jar.zip
+unzip lib/pdfixlib-8.4.3.jar.zip -d lib/
 mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
 ```
-3. Compile, Test and Package
+
+### 2. Compile, Test and Package
 ```
 mvn compile
 mvn test
