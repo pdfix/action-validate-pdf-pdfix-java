@@ -16,7 +16,7 @@
           "title": "Validate Duplicate MCID",
           "name": "validate_duplicate_mcid",
           "desc": "Validate Duplicate MCID",
-          "program": "java -jar \"${action_path}/net.pdfix.validate-pdf-1.0.0.jar\" -i \"${input_pdf}\""
+          "program": "java -jar \"${action_path}/net.pdfix.validate-pdf-1.0.0.jar\" duplicate-mcid -i \"${input_pdf}\""
         }
       ],
       "args": [
