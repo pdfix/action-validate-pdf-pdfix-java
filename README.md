@@ -65,7 +65,7 @@ PDFix Desktop supports the integration of external actions into its user interfa
 3. In PDFix Desktop 
    1. Open **Action Manager** from the main application window toolbar
    2. Click button **External Actions** in the toolbar
-   3. Select Local as the action source and choose the extracted folder
+   3. Select **Local** as the action source and choose the extracted folder
    4. Click **Add Action**
 4. Once added, the action can be accessed via **Actions > Validation > Validate Duplicate MCID** in the menu.
 
