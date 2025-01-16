@@ -58,7 +58,8 @@ Total 1 duplicate MCID(s) found
 ```
 
 ## Installation into PDFix Desktop
-PDFix Desktop enables integration of external actions into its user interface. To install the Validate Duplicate MCID action follow these steps:
+PDFix Desktop supports the integration of external actions into its user interface. Follow these steps to install the Validate Duplicate MCID action:
+
 1. **Download** the net.pdfix.validate-pdf ZIP file from the [Releases page](https://github.com/pdfix/action-validate-pdf-pdfix-java/releases/latest)
 2. **Extract** the ZIP into a folder on your computer (e.g. ~/Desktop/net.pdfix.validate-pdf)
 3. In PDFix Desktop 
