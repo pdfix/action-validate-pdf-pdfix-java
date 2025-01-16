@@ -11,7 +11,7 @@ This tool validates PDF accessibility by checking for issues in tagged PDF docum
   - [Command-Line Options](#command-line-options)
   - [Run the CLI Commands](#run-the-cli-commands)
     - [Report Duplicate MCID in Tagged PDF](#report-duplicate-mcid-in-tagged-pdf)
-  - [Installation](#installation)
+  - [Installation into PDFix Desktop](#installation-into-pdfix-desktop)
   - [Build Instructions](#build-instructions)
     - [1. Download and Install PDFix SDK for Java](#1-download-and-install-pdfix-sdk-for-java)
     - [2. Compile, Test and Package](#2-compile-test-and-package)
@@ -57,8 +57,17 @@ Total 1 duplicate MCID(s) found
 ===============================================================================
 ```
 
-## Installation
-You can download the pre-built `jar` from the [Releases page](https://github.com/pdfix/action-validate-pdf-pdfix-java/releases) if you prefer not to build the tool yourself.
+## Installation into PDFix Desktop
+PDFix Desktop enables integration of external actions into its user interface. To install the Validate Duplicate MCID action follow these steps:
+1. **Download** the net.pdfix.validate-pdf ZIP file from the [Releases page](https://github.com/pdfix/action-validate-pdf-pdfix-java/releases/latest)
+2. **Extract** the ZIP into a folder on your computer (e.g. ~/Desktop/net.pdfix.validate-pdf)
+3. In PDFix Desktop 
+   1. Open **Action Manager** from the main application window toolbar
+   2. Click button **External Actions** in the toolbar
+   3. Select Local as the action source and choose the extracted folder
+   4. Click **Add Action**
+4. Once added, the action can be accessed via **Actions > Validation > Validate Duplicate MCID** in the menu.
+
 
 ## Build Instructions
 
