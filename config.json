@@ -1,9 +1,9 @@
 {
   "actions": [
     {
-      "title": "Validate PDF Accessibility Issues",
-      "name": "validate_pdf_pdfix",
-      "desc": "Action to validate and report accessibility issues in PDF documents",
+      "title": "Validate Duplicate MCID",
+      "name": "validate_duplicate_mcid",
+      "desc": "Action to validate and report Duplicate MCID in the PDF content",
       "icon": "bug_report",
       "version": "1.0.0",
       "category": "Validation",
