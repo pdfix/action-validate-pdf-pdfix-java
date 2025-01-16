@@ -63,11 +63,11 @@ PDFix Desktop supports the integration of external actions into its user interfa
 1. **Download** the net.pdfix.validate-pdf ZIP file from the [Releases page](https://github.com/pdfix/action-validate-pdf-pdfix-java/releases/latest)
 2. **Extract** the ZIP into a folder on your computer (e.g. ~/Desktop/net.pdfix.validate-pdf)
 3. In PDFix Desktop 
-   1. Open **Action Manager** from the main application window toolbar
+   1. Open **Actions > Manage Actions** from the main menu of the application window
    2. Click button **External Actions** in the toolbar
-   3. Select **Local** as the action source and choose the extracted folder
-   4. Click **Add Action**
-4. Once added, the action can be accessed via **Actions > Validation > Validate Duplicate MCID** in the menu.
+   3. In the top-left dropdown select **Local** as the action source and **choose the extracted folder** in the editable widget.
+   4. Click **Add Action** and the action will appear in the External Action list.
+4. The action can be accessed via menu **Actions > Validation > Validate Duplicate MCID**.
 
 
 ## Build Instructions
