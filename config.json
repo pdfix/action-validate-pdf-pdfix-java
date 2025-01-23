@@ -5,7 +5,7 @@
       "name": "validate_duplicate_mcid",
       "desc": "Action to validate and report Duplicate MCID in the PDF content",
       "icon": "bug_report",
-      "version": "1.0.0",
+      "version": "v1.0.0",
       "category": "Validation",
       "returnCodes": [
         0, 1
