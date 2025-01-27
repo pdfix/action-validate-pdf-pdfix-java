@@ -1,42 +1,36 @@
 {
-  "actions": [
-    {
-      "title": "Validate Duplicate MCID",
-      "name": "validate_duplicate_mcid",
-      "desc": "Action to validate and report Duplicate MCID in the PDF content",
-      "icon": "bug_report",
-      "version": "1.0.0",
-      "category": "Validation",
-      "returnCodes": [
-        0, 1
-      ],
-      "configurations": [
+    "actions": [
         {
-          "stdout": "${output_txt}",
-          "title": "Validate Duplicate MCID",
-          "name": "validate_duplicate_mcid",
-          "desc": "Validate Duplicate MCID",
-          "program": "java -jar \"${action_path}/net.pdfix.validate-pdf-1.0.0.jar\" duplicate-mcid -i \"${input_pdf}\""
+            "title": "Validate Duplicate MCID",
+            "name": "validate_duplicate_mcid",
+            "desc": "Validate and report Duplicate MCID in the PDF content",
+            "icon": "bug_report",
+            "version": "1.0.0",
+            "category": "Validation",
+            "returnCodes": [
+                0,
+                1
+            ],
+            "stdout": "${output_txt}",
+            "program": "java -jar \"${action_path}/net.pdfix.validate-pdf-1.0.0.jar\" duplicate-mcid -i \"${input_pdf}\"",
+            "args": [
+                {
+                    "name": "input_pdf",
+                    "desc": "Path to a PDF document to proccess",
+                    "flags": 2,
+                    "ext": "pdf",
+                    "type": "file_path",
+                    "value": ""
+                },
+                {
+                    "name": "output_txt",
+                    "desc": "Path to validation report output",
+                    "flags": 4,
+                    "ext": "txt",
+                    "type": "file_path",
+                    "value": ""
+                }
+            ]
         }
-      ],
-      "args": [
-        {
-          "name": "input_pdf",
-          "desc": "Path to a PDF document to proccess",
-          "flags": 2,
-          "ext": "pdf",
-          "type": "file_path",
-          "value": ""
-        },
-        {
-          "name": "output_txt",
-          "desc": "Path to validation report output",
-          "flags": 4,
-          "ext": "txt",
-          "type": "file_path",
-          "value": ""
-        }
-      ]
-    }
-  ]
+    ]
 }
