@@ -76,7 +76,7 @@ jobs:
       run: |
         VERSION=${{ steps.extract_version.outputs.version }}
         RELEASE_DIR=${{ steps.prepare-for-release.outputs.release_dir }}
-        zip -r "net.pdfix.validate-pdf-${VERSION}.zip" $RELEASE_DIR/
+        zip -r "net.pdfix.validate-pdf-v${VERSION}.zip" $RELEASE_DIR/
 
 #    - name: Publish Release
 #      run: mvn deploy -P release -DskipTests
