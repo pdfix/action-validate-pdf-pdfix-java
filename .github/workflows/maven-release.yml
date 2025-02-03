@@ -88,6 +88,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          net.pdfix.validate-pdf-${{ steps.extract_version.outputs.version }}.zip
+          net.pdfix.validate-pdf-v${{ steps.extract_version.outputs.version }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
