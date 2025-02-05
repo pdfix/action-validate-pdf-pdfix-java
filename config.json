@@ -3,8 +3,8 @@
         {
             "title": "Validate Duplicate MCID",
             "name": "validate_duplicate_mcid",
-            "desc": "Validate and report Duplicate MCID in the PDF content",
-            "icon": "bug_report",
+            "desc": "Validates and reports duplicate MCID in the PDF content",
+            "icon": "validate_mcid",
             "version": "v1.0.0",
             "category": "Validation",
             "returnCodes": [
@@ -16,7 +16,7 @@
             "args": [
                 {
                     "name": "input_pdf",
-                    "desc": "Path to a PDF document to proccess",
+                    "desc": "Input PDF file",
                     "flags": 2,
                     "ext": "pdf",
                     "type": "file_path",
@@ -24,7 +24,7 @@
                 },
                 {
                     "name": "output_txt",
-                    "desc": "Path to validation report output",
+                    "desc": "Output TXT file",
                     "flags": 4,
                     "ext": "txt",
                     "type": "file_path",
