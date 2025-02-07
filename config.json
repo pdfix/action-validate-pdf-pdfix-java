@@ -1,18 +1,19 @@
 {
+    "version": "v0.0.0",
     "actions": [
         {
             "title": "Validate Duplicate MCID",
             "name": "validate_duplicate_mcid",
             "desc": "Validates and reports duplicate MCID in the PDF content",
             "icon": "validate_mcid",
-            "version": "v1.0.0",
+            "version": "v0.0.0",
             "category": "Validation",
             "returnCodes": [
                 0,
                 1
             ],
             "stdout": "${output_txt}",
-            "program": "java -jar \"${action_path}/net.pdfix.validate-pdf-1.0.0.jar\" duplicate-mcid -i \"${input_pdf}\"",
+            "program": "java -jar \"${action_path}/net.pdfix.validate-pdf-v0.0.0.jar\" duplicate-mcid -i \"${input_pdf}\"",
             "args": [
                 {
                     "name": "input_pdf",

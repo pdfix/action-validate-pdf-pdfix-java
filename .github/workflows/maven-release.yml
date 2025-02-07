@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'  # Trigger release on version tag, e.g., v1.0.0
 
+env:
+  ACTION_NAMESPACE: pdfix
+  ACTION_REPOSITORY: validate-pdf-pdfix
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,26 +38,9 @@ jobs:
         unzip lib/pdfixlib-8.4.3.jar.zip -d lib/
         mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
 
-    - name: Extract version from tag
-      id: extract_version
-      run: |
-        # Extract the version from the tag (e.g., "v1.2.1" -> "1.2.1")
-        VERSION=$(echo ${GITHUB_REF#refs/tags/v})
-        echo "Version to set: $VERSION"
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-  
-    - name: Set version in pom.xml
-      run: |
-        mvn versions:set -DnewVersion=${{ steps.extract_version.outputs.version }}
-  
-    - name: Update version in config.json
-      run: |
-        VERSION=${{ steps.extract_version.outputs.version }}
-        
-        # Use sed to replace the old version in the "program" field of config.json
-        sed -i "s/-[0-9]*\.[0-9]*\.[0-9]*.jar/-${VERSION}.jar/" config.json
-        sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"${VERSION}\"/" config.json
-  
+    - name: Update config.json version
+      run: chmod +x update_version.sh && ./update_version.sh ${{ env.tag }}
+
     - name: Build with Maven
       run: |
         mvn compile
@@ -64,8 +51,7 @@ jobs:
     - name: Prepare files for release
       id: prepare-for-release
       run: |
-        VERSION=${{ steps.extract_version.outputs.version }}
-        RELEASE_DIR=net.pdfix.validate-pdf-${VERSION}
+        RELEASE_DIR=net.pdfix.validate-pdf-${{ env.tag }}
         echo "release_dir=$RELEASE_DIR" >> $GITHUB_OUTPUT
 
         mkdir ${RELEASE_DIR}
@@ -74,9 +60,8 @@ jobs:
     
     - name: Zip the release files
       run: |
-        VERSION=${{ steps.extract_version.outputs.version }}
         RELEASE_DIR=${{ steps.prepare-for-release.outputs.release_dir }}
-        zip -r "net.pdfix.validate-pdf-v${VERSION}.zip" $RELEASE_DIR/
+        zip -r "net.pdfix.validate-pdf-${{ env.tag }}.zip" $RELEASE_DIR/
 
 #    - name: Publish Release
 #      run: mvn deploy -P release -DskipTests
@@ -88,6 +73,10 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          net.pdfix.validate-pdf-v${{ steps.extract_version.outputs.version }}.zip
+          net.pdfix.validate-pdf-${{ env.tag }}.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload to FTP
+      run: |
+          curl -T config.json ftp.pdfix.net/update-service/v1/actions/${{ env.ACTION_NAMESPACE }}/${{ env.ACTION_REPOSITORY }}/config.json --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" --ftp-create-dirs
