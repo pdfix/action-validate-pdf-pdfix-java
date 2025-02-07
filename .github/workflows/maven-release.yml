@@ -31,6 +31,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
+    - name: Set env variables
+      run: echo "tag=${{ github.ref_name }}" >> $GITHUB_ENV            
+
     - name: Download and unzip JAR file
       run: |
         mkdir -p lib
