@@ -28,7 +28,6 @@ mvn versions:set -DnewVersion=${version_short}
 
 # Replace "v0.0.0" placeholder with the provided argument in config.json
 sed -i "s|v0.0.0|$1|g" config.json
-# Replace "{version}" with the provided argument in config.json
-sed -i "s|{version}|$1|g" config.json
+sed -i "s|0.0.0|$version_short|g" config.json
 
 echo "Replaced all occurrences of 'latest' with '$1' in config.json."
