@@ -4,7 +4,7 @@
     "actions": [
         {
             "title": "Validate Duplicate MCID",
-            "name": "validate_duplicate_mcid",
+            "name": "pdfix-validate_duplicate_mcid",
             "desc": "Validates and reports duplicate MCID in the PDF content",
             "icon": "validate_mcid",
             "version": "v0.0.0",
