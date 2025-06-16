@@ -1,10 +1,13 @@
 # PDF Accessibility Validator using PDFix
+
 A Java CLI tool for validating the compliance of PDF documents with accessibility standards such as WCAG, or PDF/UA.
 
 ## Introduction
+
 This tool validates PDF accessibility by checking for issues in tagged PDF documents. It leverages the PDFix SDK (free version) for reading and processing PDF files. Ensuring that PDFs are accessible is crucial for users with disabilities, and this tool helps identify and report potential issues.
 
 ## Table of Contents
+
 - [PDF Accessibility Validator using PDFix](#pdf-accessibility-validator-using-pdfix)
   - [Introduction](#introduction)
   - [Table of Contents](#table-of-contents)
@@ -20,6 +23,7 @@ This tool validates PDF accessibility by checking for issues in tagged PDF docum
 
 
 ## Command-Line Options
+
 ```yml
 Usage:
   java -jar validate-pdf-{version}.jar [operation] [arguments]
@@ -35,6 +39,7 @@ Arguments:
 ## Run the CLI Commands
 
 ### Report Duplicate MCID in Tagged PDF
+
 This command validates a PDF file for duplicate MCID entries, which can cause accessibility issues for screen readers.
 
 ```bash
@@ -58,6 +63,7 @@ Total 1 duplicate MCID(s) found
 ```
 
 ## Installation into PDFix Desktop
+
 PDFix Desktop supports the integration of external actions into its user interface. Follow these steps to install the Validate Duplicate MCID action:
 
 1. **Download** the net.pdfix.validate-pdf ZIP file from the [Releases page](https://github.com/pdfix/action-validate-pdf-pdfix-java/releases/latest)
@@ -73,6 +79,7 @@ PDFix Desktop supports the integration of external actions into its user interfa
 ## Build Instructions
 
 ### 1. Download and Install PDFix SDK for Java
+
 Before building the project, you need to download and install the PDFix SDK. This SDK is used to read and process PDF files for accessibility validation. Run the following commands:
 
 ```bash
@@ -83,6 +90,7 @@ mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.p
 ```
 
 ### 2. Compile, Test and Package
+
 ```bash
 mvn compile
 mvn test
@@ -90,7 +98,9 @@ mvn package
 ```
 
 ## License
+
 This project is licensed under the [PDFix Free License](https://pdfix.net/terms/).
 
 ## Have a question? Need help?
+
 If you have any questions or need assistance, feel free to reach out to us via email at [support@pdfix.net](mailto:support@pdfix.net).
