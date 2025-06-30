@@ -12,9 +12,9 @@ public class FindDuplicateMcidTest {
   void testDuplicateMcid() throws Exception {
     String basePath = System.getProperty("user.dir"); // path to current folder
     String pdfPath = basePath + "/resources/test.pdf";
-    int ret = FindDuplicateMcid.checkDuplicateMcid(pdfPath);
-    if (ret != 1) {
-    //   throw new Exception("testDuplicateMcid Failed");
+    int numberOfDuplicities = FindDuplicateMcid.checkDuplicateMcid(pdfPath);
+    if (numberOfDuplicities != 5) {
+      throw new Exception("testDuplicateMcid Failed - Expected 5 duplicate MCIDs, found " + numberOfDuplicities);
     }
   }
 }

@@ -34,11 +34,12 @@ jobs:
     - name: Set env variables
       run: echo "tag=${{ github.ref_name }}" >> $GITHUB_ENV            
 
-    - name: Download and unzip JAR file
+    - name: Download and unzip SDK JAR file
       run: |
         mkdir -p lib
         curl -L https://github.com/pdfix/pdfix_sdk_builds/releases/download/v8.4.3/java8-net.pdfix.pdfixlib-8.4.3.jar.zip -o lib/pdfixlib-8.4.3.jar.zip
         unzip lib/pdfixlib-8.4.3.jar.zip -d lib/
+        rm lib/pdfixlib-8.4.3.jar.zip
         mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
 
     - name: Update config.json version
@@ -47,7 +48,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn compile
-        mvn test 
+        mvn test
         mvn package
       # run: mvn clean install -DskipTests
 
