@@ -32,7 +32,7 @@ jobs:
           ${{ runner.os }}-maven-
 
     - name: Set env variables
-      run: echo "tag=${{ github.ref_name }}" >> $GITHUB_ENV            
+      run: echo "tag=${{ github.ref_name }}" >> $GITHUB_ENV
 
     - name: Download and unzip SDK JAR file
       run: |
@@ -51,6 +51,9 @@ jobs:
         mvn test
         mvn package
       # run: mvn clean install -DskipTests
+
+    - name: Run tests
+      run: chmod +x test.sh && ./test.sh
 
     - name: Prepare files for release
       id: prepare-for-release

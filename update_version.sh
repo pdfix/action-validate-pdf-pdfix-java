@@ -29,6 +29,7 @@ version_short="${1#v}"
 echo "Version: $1"
 echo "Short version: ${version_short}"
 
+# Update the version in pom.xml
 mvn versions:set -DnewVersion=${version_short}
 
 # Replace "v0.0.0" placeholder with the provided argument in config.json
