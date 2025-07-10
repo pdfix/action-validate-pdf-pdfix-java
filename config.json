@@ -5,10 +5,11 @@
         {
             "title": "Generate Duplicate MCID Report to TXT",
             "name": "pdfix_generate_duplicate_mcid_report_to_txt",
-            "desc": "Validates and reports duplicate MCID in the PDF content.",
-            "icon": "validate_mcid",
+            "desc": "Validates and reports duplicate MCID in the PDF content [Local]",
             "version": "v0.0.0",
+            "icon": "validate_mcid",
             "category": "Validation",
+            "local": "True",
             "configurations": [
                 {
                     "note": "This node is here to support PDFix Desktop 2.3.x",
