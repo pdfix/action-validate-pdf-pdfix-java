@@ -37,10 +37,10 @@ jobs:
     - name: Download and unzip SDK JAR file
       run: |
         mkdir -p lib
-        curl -L https://github.com/pdfix/pdfix_sdk_builds/releases/download/v8.4.3/java8-net.pdfix.pdfixlib-8.4.3.jar.zip -o lib/pdfixlib-8.4.3.jar.zip
-        unzip lib/pdfixlib-8.4.3.jar.zip -d lib/
-        rm lib/pdfixlib-8.4.3.jar.zip
-        mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.4.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.4.3 -Dpackaging=jar
+        curl -L https://github.com/pdfix/pdfix_sdk_builds/releases/download/v8.7.3/java-net.pdfix.pdfixlib-8.7.3_b2f5cb96.jar.zip -o lib/pdfixlib-8.7.3.jar.zip
+        unzip lib/pdfixlib-8.7.3.jar.zip -d lib/
+        rm lib/pdfixlib-8.7.3.jar.zip
+        mvn install:install-file -Dfile=lib/net.pdfix.pdfixlib-8.7.3.jar -DgroupId=net.pdfix -DartifactId=net.pdfix.pdfixlib -Dversion=8.7.3 -Dpackaging=jar
 
     - name: Update config.json version
       run: chmod +x update_version.sh && ./update_version.sh ${{ env.tag }}
