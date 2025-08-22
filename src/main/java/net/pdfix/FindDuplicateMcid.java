@@ -1,5 +1,7 @@
 package net.pdfix;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,9 @@ import java.util.List;
 import net.pdfix.pdfixlib.*;
 
 public class FindDuplicateMcid {
+    private static int kReportTypeDplicateMcid = 1;
+    private static int kReportTypeArtifactMcid = 2;
+
     // Helper function to get a readable object type
     private static String getNiceObjType(PdfPageObjectType type) {
         switch (type) {
@@ -42,8 +47,13 @@ public class FindDuplicateMcid {
         return info.toString();
     }
 
-    public static void reportMcid(int pageNum, PdsPageObject obj, int index, int mcid) {
-        System.out.println("Duplicate MCID Found:");
+    public static void reportMcid(int pageNum, PdsPageObject obj, int index, int mcid, int reportType) {
+        // report type
+        if (reportType == kReportTypeDplicateMcid) {
+            System.out.println("Error: Duplicate MCID found");
+        } else if (reportType == kReportTypeArtifactMcid) {
+            System.out.println("Warning: Artifact with MCID found");
+        }
         String objType = getNiceObjType(obj.GetObjectType());
         String objBBox = getObjBBox(obj);
         String objContent = getObjContent(obj);
@@ -63,10 +73,39 @@ public class FindDuplicateMcid {
         System.out.println(info.toString());
     }
 
+    private static Boolean compareContentMarkMCID(PdsPageObject obj1, PdsPageObject obj2) {
+        if (obj1 == obj2) {
+            return true;
+        }
+        if ((obj1 == null) || (obj2 == null)) {
+            return false;
+        }
+        PdsContentMark cm1 = obj1.GetContentMark();
+        PdsContentMark cm2 = obj2.GetContentMark();
+
+        // compare content mark index with MCID
+        if (cm1.GetTagMcid() != cm2.GetTagMcid()) {
+            return false;
+        } 
+
+        // compare content mark names, manes on each index must me equal
+        for (int i = 0; i <= cm1.GetTagMcid(); i++) {
+            if (cm1.GetTagName(i).compareTo(cm2.GetTagName(i)) != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Check for duplicate MCIDs in a PDF file. Return the number of dulicate mcids
     // found
     public static int checkDuplicateMcid(String path) throws Exception {
         Pdfix pdfix = new Pdfix();
+
+        File file = new File(path);
+        if (!file.exists()) {
+            throw new FileNotFoundException(path);
+        }
 
         PdfDoc doc = pdfix.OpenDoc(path, "");
         if (doc == null) {
@@ -89,34 +128,37 @@ public class FindDuplicateMcid {
             }
 
             int lastMcid = -1;
+            PdsPageObject lastObject = null;
             List<Integer> mcids = new ArrayList<Integer>();
-            PdsPageObject lastObj = null;
             for (int j = 0; j < content.GetNumObjects(); j++) {
                 PdsPageObject obj = content.GetObject(j);
+                PdsContentMark contentMark = obj.GetContentMark();
                 int mcid = obj.GetMcid();
-                if ((mcid != -1) && (mcid == lastMcid)) {
-                    // content marks must be equal for equal mcid
-                    if (lastObj != null) {
-                        if (obj.GetNumEqualTags(lastObj) != obj.GetContentMark().GetNumTags()) {
-                            reportMcid(i, obj, j, mcid);
-                            found++;
-                        }
-                    }
-                } else if (mcid != lastMcid) {
+                Boolean isArtifact = (contentMark.GetTagArtifact() != -1);
+
+                // reports following options:
+                // Error: duplicite MCID in tagged content (second MCID occurence can be in tagged content or artifact)
+                // Warning: MCID set for Artifact (it may be used in tag tree)
+
+                if ((mcid != lastMcid) || ((mcid != -1) && (lastObject != null) && (!compareContentMarkMCID(obj, lastObject)))) {
                     lastMcid = mcid;
                     if (mcid == -1) {
                         continue;
                     }
-
                     if (mcids.contains(mcid)) {
-                        reportMcid(i, obj, j, mcid);
+                        reportMcid(i, obj, j, mcid, kReportTypeDplicateMcid);
                         found++;
                     }
                     mcids.add(mcid);
                 }
-                lastObj = obj;
+                if (isArtifact && (mcid != -1)) {
+                    if (mcid != -1) {
+                        reportMcid(i, obj, j, mcid, kReportTypeArtifactMcid);
+                    }
+                    lastMcid = -1;
+                }
+                lastObject = obj;
             }
-
             page.Release();
         }
 

@@ -2,6 +2,7 @@ package net.pdfix;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,6 +15,13 @@ import java.util.Properties;
 public class App {
   private static String VERSION = "1.0.0";
   private static String APP_NAME = "Validate PDF Accessibility";
+
+    // Success codes: 0-255 for object counts
+    // Error codes: 256+ to avoid conflict with object counts
+    private static final int ERROR_GENERAL = 101;
+    
+    // Maximum count we can return as exit code is 100
+    private static final int MAX_EXIT_CODE = 100;    // maximum number of errors returned as an exit code  
 
   private static void displayVersion() {
     Properties properties = new Properties();
@@ -65,13 +73,13 @@ public class App {
     return fileList;
   }
 
-  private static void processFile(File file) throws Exception {
+  private static int processFile(File file) throws Exception {
     // Process single file
     System.out.println("File: " + file.getPath() + "");
 
     if (!isPDFFile(file.getAbsolutePath())) {
       System.out.println("Not a PDF file");
-      return;
+      return 0;
     }
 
     int count = FindDuplicateMcid.checkDuplicateMcid(file.getAbsolutePath());
@@ -80,6 +88,7 @@ public class App {
     } else {
       System.out.println(String.format("Total %d duplicate MCID(s) found", count));
     }
+    return count;
   }
 
   private static String OP_DUPLICATE_MCID = "OP_DUPLICATE_MCID";
@@ -152,21 +161,25 @@ public class App {
         }
       });
 
+      int count = 0;
+
       // Process each file
       for (File file : fileList) {
         System.out.println("===============================================================================");
         try {
           if (op == OP_DUPLICATE_MCID) {
-            processFile(file);
+            count += processFile(file);
           }
         } catch (Exception e) {
-          System.out.println(e.getLocalizedMessage());
+          System.err.println(e.getLocalizedMessage());
         }
         System.out.println("===============================================================================\n");
       }
       System.out.println("Process complete");
+      System.exit(Math.min(count, MAX_EXIT_CODE));
     } catch (Exception e) {
-      System.out.println(e.getLocalizedMessage());
+      System.err.println(e.getLocalizedMessage());
+      System.exit(ERROR_GENERAL);
     }
   }
 }

@@ -34,6 +34,11 @@ Operations:
 Arguments:
   -i <file>         : Path to a single PDF file to validate.
   -d <folder>       : Path to a directory of PDF files to validate (will process all PDFs in the folder).
+
+Return Codes:
+  success with no duplicate MCIDs: 0 - no duplcate MCIDs
+  success with found duplicate MCIDs: count of invalid duplicate MCIDs (maximum 100)
+  error: 101 and higher - error check the message in System.err
 ```
 
 ## Run the CLI Commands
