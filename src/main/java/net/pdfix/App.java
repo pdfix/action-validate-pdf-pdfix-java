@@ -16,12 +16,10 @@ public class App {
   private static String VERSION = "1.0.0";
   private static String APP_NAME = "Validate PDF Accessibility";
 
-    // Success codes: 0-255 for object counts
-    // Error codes: 256+ to avoid conflict with object counts
-    private static final int ERROR_GENERAL = 101;
-    
-    // Maximum count we can return as exit code is 100
-    private static final int MAX_EXIT_CODE = 100;    // maximum number of errors returned as an exit code  
+  // Success codes: 0-100 for object counts
+  // Error codes: 101+ to avoid conflict with object counts
+  private static final int MAX_EXIT_CODE = 100; 
+  private static final int ERROR_GENERAL = 101;
 
   private static void displayVersion() {
     Properties properties = new Properties();
