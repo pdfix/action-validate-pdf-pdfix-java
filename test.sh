@@ -46,7 +46,7 @@ function validateFile {
     stderr=$(mktemp)   # temporary file for stderr    
 
     # Run the program, redirecting streams
-    java --enable-native-access=ALL-UNNAMED -jar target/net.pdfix.validate-pdf-*.jar duplicate-mcid -i "$FILE" >"$stdout" 2>"$stderr"
+    java -jar target/net.pdfix.validate-pdf-*.jar duplicate-mcid -i "$FILE" >"$stdout" 2>"$stderr"
     exit_code=$?
 
     err=$(cat "$stderr")
