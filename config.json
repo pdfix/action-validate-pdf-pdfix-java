@@ -142,7 +142,10 @@
                     "type": "file_path",
                     "value": ""
                 }
-            ]
+            ],
+            "errors": {
+                "101": "Unforseen error happened. More info in logs."
+            }
         }
     ]
 }

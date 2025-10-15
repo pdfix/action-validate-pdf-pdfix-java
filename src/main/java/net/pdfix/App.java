@@ -16,11 +16,6 @@ public class App {
   private static String VERSION = "1.0.0";
   private static String APP_NAME = "Validate PDF Accessibility";
 
-  // Success codes: 0-100 for object counts
-  // Error codes: 101+ to avoid conflict with object counts
-  private static final int MAX_EXIT_CODE = 100; 
-  private static final int ERROR_GENERAL = 101;
-
   private static void displayVersion() {
     Properties properties = new Properties();
     try {
@@ -174,10 +169,11 @@ public class App {
         System.out.println("===============================================================================\n");
       }
       System.out.println("Process complete");
-      System.exit(Math.min(count, MAX_EXIT_CODE));
+      System.exit(Math.min(count, ExitCodes.MAX_SUCCESS));
     } catch (Exception e) {
+      System.err.println(ExitCodes.GENERAL_MESSAGE);
       System.err.println(e.getLocalizedMessage());
-      System.exit(ERROR_GENERAL);
+      System.exit(ExitCodes.GENERAL_ERROR);
     }
   }
 }
