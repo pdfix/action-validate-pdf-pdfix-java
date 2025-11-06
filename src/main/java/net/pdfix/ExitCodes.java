@@ -1,3 +1,5 @@
+package net.pdfix;
+
 /**
  * Defines all system exit codes for the application.
  */
