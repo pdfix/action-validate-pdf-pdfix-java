@@ -9,7 +9,7 @@
             "version": "v0.0.0",
             "icon": "validate_mcid",
             "category": "Validation",
-            "local": "True",
+            "local": true,
             "configurations": [
                 {
                     "note": "This node is here to support PDFix Desktop 2.3.x",
