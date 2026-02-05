@@ -17,20 +17,30 @@ if [ "$1" == "latest" ]; then
     exit 0
 fi
 
-# Check if config.json exists
-if [ ! -f "config.json" ]; then
-    echo "File config.json does not exist."
-    exit 1
-fi
-
 version=$1
 version_short="${1#v}"
 
 echo "Version: $1"
 echo "Short version: ${version_short}"
 
+
+# Check if pom.xml exists
+if [ ! -f "pom.xml" ]; then
+    echo "File pom.xml does not exist."
+    exit 1
+fi
+
 # Update the version in pom.xml
 mvn versions:set -DnewVersion=${version_short}
+
+echo "Set version in pom.xml"
+
+
+# Check if config.json exists
+if [ ! -f "config.json" ]; then
+    echo "File config.json does not exist."
+    exit 1
+fi
 
 # Replace "v0.0.0" placeholder with the provided argument in config.json
 sed -i "s|v0\.0\.0|$1|g" config.json
