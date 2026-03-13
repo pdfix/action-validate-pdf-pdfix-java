@@ -39,11 +39,10 @@ info "Test #02: Run validate MCID"
 function validateFile {
     FILE=$1
     COUNT=$2
-    # EXIT_STATUS=0
 
     # Run Java program and capture outputs
-    stdout=$(mktemp)   # temporary file for stdout
-    stderr=$(mktemp)   # temporary file for stderr    
+    stdout=$(mktemp)   # temporary file for standart output
+    stderr=$(mktemp)   # temporary file for error output
 
     # Run the program, redirecting streams
     java -jar target/net.pdfix.validate-pdf-*.jar duplicate-mcid -i "$FILE" >"$stdout" 2>"$stderr"
@@ -68,7 +67,6 @@ function validateFile {
 
     # Clean up temporary files
     rm "$stdout" "$stderr"
-    return $EXIT_STATUS
 }
 
 validateFile "resources/test.pdf" 1
