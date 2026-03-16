@@ -2,7 +2,6 @@ package net.pdfix;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,18 +14,8 @@ import java.util.Properties;
 public class App {
   private static String VERSION = "1.0.0";
   private static String APP_NAME = "Validate PDF Accessibility";
+  private static String OP_DUPLICATE_MCID = "OP_DUPLICATE_MCID";
 
-  private static void displayVersion() {
-    Properties properties = new Properties();
-    try {
-      properties.load(App.class.getClassLoader().getResourceAsStream("version.properties"));
-      VERSION = properties.getProperty("project.version");
-      APP_NAME = properties.getProperty("project.name");
-      System.out.println(APP_NAME + " v" + VERSION + "\n");
-    } catch (IOException e) {
-      System.err.println("Error reading version information.");
-    }
-  }
 
   public static boolean isPDFFile(String filePath) {
     File file = new File(filePath);
@@ -53,39 +42,6 @@ public class App {
     }
   }
 
-  // Collects all files from the specified directory
-  private static List<File> collectFiles(String directoryPath) {
-    List<File> fileList = new ArrayList<>();
-    try {
-      Files.walk(Paths.get(directoryPath))
-          .filter(Files::isRegularFile) // Include only regular files (not directories)
-          .forEach(path -> fileList.add(path.toFile()));
-    } catch (IOException e) {
-      System.err.println("Error reading files: " + e.getMessage());
-    }
-    return fileList;
-  }
-
-  private static int processFile(File file) throws Exception {
-    // Process single file
-    System.out.println("File: " + file.getPath() + "");
-
-    if (!isPDFFile(file.getAbsolutePath())) {
-      System.out.println("Not a PDF file");
-      return 0;
-    }
-
-    int count = FindDuplicateMcid.checkDuplicateMcid(file.getAbsolutePath());
-    if (count == 0) {
-      System.out.println("No duplicate MCIDs found");
-    } else {
-      System.out.println(String.format("Total %d duplicate MCID(s) found", count));
-    }
-    return count;
-  }
-
-  private static String OP_DUPLICATE_MCID = "OP_DUPLICATE_MCID";
-
   public static void main(String[] args) throws Exception {
     displayVersion();
 
@@ -94,7 +50,11 @@ public class App {
     String last = "";
 
     String op = "";
+
+    ConsoleProgressBar progressBar = null;
+
     try {
+      // Parse arguments
       for (String s : args) {
         if (last.isEmpty()) {
           if (s.equals("--help")) {
@@ -132,6 +92,8 @@ public class App {
         throw new RuntimeException("Missing operation argument. See --help");
       }
 
+      progressBar = new ConsoleProgressBar("Gathering files");
+
       List<File> fileList = new ArrayList<>();
       if (!inputFile.isEmpty()) {
         fileList.add(new File(inputFile));
@@ -154,6 +116,10 @@ public class App {
         }
       });
 
+      progressBar.update(10f);
+      progressBar.setTitle("Processing files");
+      float step = fileList.size() / 90f;
+
       int count = 0;
 
       // Process each file
@@ -167,13 +133,68 @@ public class App {
           System.err.println(e.getLocalizedMessage());
         }
         System.out.println("===============================================================================\n");
+        progressBar.update(step);
       }
       System.out.println("Process complete");
+
+      progressBar.setProgress(100f);
+      progressBar.setTitle("Done");
+      progressBar.waitUntilFinished();
+
       System.exit(Math.min(count, ExitCodes.MAX_SUCCESS));
     } catch (Exception e) {
+      if ((progressBar != null) && progressBar.isRunning()) {
+        progressBar.stop();
+      }
+
       System.err.println(ExitCodes.GENERAL_MESSAGE);
       System.err.println(e.getLocalizedMessage());
       System.exit(ExitCodes.GENERAL_ERROR);
     }
+
+  }
+
+
+  private static void displayVersion() {
+    Properties properties = new Properties();
+    try {
+      properties.load(App.class.getClassLoader().getResourceAsStream("version.properties"));
+      VERSION = properties.getProperty("project.version");
+      APP_NAME = properties.getProperty("project.name");
+      System.out.println(APP_NAME + " v" + VERSION + "\n");
+    } catch (IOException e) {
+      System.err.println("Error reading version information.");
+    }
+  }
+
+  // Collects all files from the specified directory
+  private static List<File> collectFiles(String directoryPath) {
+    List<File> fileList = new ArrayList<>();
+    try {
+      Files.walk(Paths.get(directoryPath))
+          .filter(Files::isRegularFile) // Include only regular files (not directories)
+          .forEach(path -> fileList.add(path.toFile()));
+    } catch (IOException e) {
+      System.err.println("Error reading files: " + e.getMessage());
+    }
+    return fileList;
+  }
+
+  private static int processFile(File file) throws Exception {
+    // Process single file
+    System.out.println("File: " + file.getPath() + "");
+
+    if (!isPDFFile(file.getAbsolutePath())) {
+      System.out.println("Not a PDF file");
+      return 0;
+    }
+
+    int count = FindDuplicateMcid.checkDuplicateMcid(file.getAbsolutePath());
+    if (count == 0) {
+      System.out.println("No duplicate MCIDs found");
+    } else {
+      System.out.println(String.format("Total %d duplicate MCID(s) found", count));
+    }
+    return count;
   }
 }
