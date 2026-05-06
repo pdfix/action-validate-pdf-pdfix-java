@@ -145,7 +145,8 @@
             ],
             "errors": {
                 "101": "Unforseen error happened. More info in logs."
-            }
+            },
+            "progress_regex": "^(?<text>[^:]+):\\s+(?<progress>\\d{1,3})%"
         }
     ]
 }

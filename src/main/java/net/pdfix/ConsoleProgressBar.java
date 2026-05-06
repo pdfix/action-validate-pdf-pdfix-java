@@ -132,7 +132,7 @@ public class ConsoleProgressBar implements Runnable {
             line.append("\r");
         }
 
-        line.append(String.format("%s :", title));
+        line.append(String.format("%s : ", title));
 
         for (int i = line.length(); i < percentStart; i++) {
             line.append(' ');
