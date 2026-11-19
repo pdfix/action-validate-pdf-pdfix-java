@@ -91,25 +91,25 @@ jobs:
     - name: Prepare directory for versions repository
       run: mkdir -p pdfix-version-updates
 
-      - name: Generate GitHub App token
-        id: app-token
-        # pinned by sha commit to avoid tag repointing supply-chain attacks
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: pdfix
-          repositories: pdfix-version-updates
+    - name: Generate GitHub App token
+      id: app-token
+      # pinned by sha commit to avoid tag repointing supply-chain attacks
+      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      with:
+        app-id: ${{ secrets.APP_ID }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
+        owner: pdfix
+        repositories: pdfix-version-updates
 
-      - name: Checkout versions repo
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          repository: pdfix/pdfix-version-updates
-          path: pdfix-version-updates
-          token: ${{ steps.app-token.outputs.token }}
-          ref: main
-          fetch-depth: 0
-          fetch-tags: true
+    - name: Checkout versions repo
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        repository: pdfix/pdfix-version-updates
+        path: pdfix-version-updates
+        token: ${{ steps.app-token.outputs.token }}
+        ref: main
+        fetch-depth: 0
+        fetch-tags: true
 
     - name: Update versions repository with new version
       run: chmod +x update_versions_repository.sh && ./update_versions_repository.sh ${{ env.ACTION_NAMESPACE }} ${{ env.ACTION_REPOSITORY }} ${{ env.tag }}
